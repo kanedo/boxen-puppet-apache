@@ -7,16 +7,20 @@
 #       Defaults to "${boxen::config::srcdir}/${name}".
 #
 #     port =>
-#       Port for Apache to listen on. REQUIRED.
+#       Port for Apache to listen on.
+#		Defaults to 80.
 #
 
 define apache::vhost(
-  $port,
+  $port = undef,
   $docroot  = undef,
   $host = undef,
 ) {
   require apache
-
+  $port = $port ? {
+  	undef	=> 80,
+	default => $port
+  }
   $vhost_docroot = $docroot ? {
     undef   => "${boxen::config::srcdir}/${name}",
     default => $docroot
