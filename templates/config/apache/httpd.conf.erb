@@ -495,6 +495,10 @@ Include <%= scope.lookupvar "apache::config::configdir" %>/extra/httpd-manual.co
 SSLRandomSeed startup builtin
 SSLRandomSeed connect builtin
 </IfModule>
+# Ensure we're listening on the port
+Listen 80
+# Use name-based virtual hosting.
+NameVirtualHost *:80
 
 Include <%= scope.lookupvar "apache::config::configdir" %>/other/*.conf
 
